@@ -7,9 +7,26 @@ Tree::Tree()
 
 Tree::~Tree(){
     if (head){
-        delete head;
+        DeleteNode(head);
     }
 }
+
+void Tree::DeleteNode(treeNode *node){
+    Node<treeNode *> *list_node = node->kids.Head();
+
+    if (node->kids.Empty() && node){
+        delete node;
+        return;
+    }
+    while(list_node != nullptr){
+        DeleteNode(list_node->value);
+        list_node = list_node->next;
+    }
+    if (node){
+        delete node;
+    }
+}
+
 
 treeNode *Tree::Head()
 {
